@@ -35,11 +35,14 @@ const packaging = async (items: Array<Item>, maxSuggestions = 3) => {
         const boxVolume = box.length * box.width * box.height;
 
         if (boxVolume >= totalItemVolume) {
-
-
+            // Check if the box can fit all items with padding
             const packedItems: Array<IPackedItems> | null = simple3DPacking(paddedItems, box);
-
             if (packedItems) {
+
+                const usedPackingMaterials = calculatePackingMaterials(paddedItems, packingMaterials, box);
+                const usedPackingMaterialsCost = usedPackingMaterials.reduce((total, pm) => total + pm.cost, 0);
+                const boxCost = box.cost || 0;
+
                 suitableBoxes.push({
                     box: {
                         sku: box.sku,
@@ -52,9 +55,9 @@ const packaging = async (items: Array<Item>, maxSuggestions = 3) => {
                         cost: box.cost,
                     },
                     itemsArrangement: getItemsCoordinates(packedItems),
-                    packing_materials: calculatePackingMaterials(packedItems, packingMaterials, box),
-                    material_cost: calculatePackingMaterials(packedItems, packingMaterials, box).reduce((total, pm) => total + pm.cost, 0),
-                    estimate_cost: (box.cost || 0) + calculatePackingMaterials(packedItems, packingMaterials, box).reduce((total, pm) => total + pm.cost, 0),
+                    packing_materials: usedPackingMaterials,
+                    packing_material_cost: usedPackingMaterialsCost,
+                    estimate_cost: boxCost + usedPackingMaterialsCost,
                     fit_rating: getFitRating(box, packedItems),
                 });
 
@@ -135,6 +138,7 @@ const simple3DPacking = (items: Array<IPaddedItem>, box: IBox) => {
                 // Place the item using the best orientation
                 packedItems.push({
                     ...item,
+                    quantity: 1, // every item is placed one by one
                     length: bestFit.length,
                     width: bestFit.width,
                     height: bestFit.height,
@@ -192,7 +196,7 @@ const getItemsCoordinates = (items: Array<IPackedItems>) => {
 }
 
 const calculatePackingMaterials = (
-    items: IPackedItems[],
+    items: IPaddedItem[],
     materials: IPackingMaterial[],
     box: IBox
 ): { name: string; amount: number; unit: string; cost: number }[] => {
@@ -203,8 +207,11 @@ const calculatePackingMaterials = (
         (m: IPackingMaterial) => m.name === "Bubble Wrap"
     );
     if (bubbleWrapMaterial) {
+
+        // total surface area of one item : 2 * (l*w + l*h + w*h)
+        // total surface area of all items = total surface area of one item * quantity
         const bubbleWrapNeeded = items.reduce(
-            (total, item) => total + (item.length + item.width + item.height) * 2 * item.quantity,
+            (total, item) => total + (2 * (item.original.length * item.original.width + item.original.length * item.original.height + item.original.width * item.original.height)) * item.quantity,
             0
         );
         materialsUsed.push({
@@ -225,14 +232,10 @@ const calculatePackingMaterials = (
             (total, item) => total + item.length * item.width * item.height * item.quantity,
             0
         );
-        // console.log("Box volume:", boxVolume);
-        // console.log("Items volume:", itemsVolume);
+
         const emptySpace = boxVolume - itemsVolume;
-        // console.log(`Empty space in box: ${emptySpace}`);
-        // Assuming 50 cubic inches of peanuts fill 1 cubic inch of space
-        // const peanutsNeeded = Math.ceil(emptySpace / 50);
+        // Assuming 50 cubic inches of peanuts fill 1 cubic inch of space  
         const peanutsNeeded = Math.max(0, Math.ceil(emptySpace / 50));
-        // console.log(`Peanuts needed: ${peanutsNeeded}`);
         // Calculate the cost of peanuts based on the amount needed and cost per unit
         // Assuming peanuts are sold by volume, not weight                      
         materialsUsed.push({
@@ -251,9 +254,12 @@ const getFitRating = (box: IBox, items: Array<IPackedItems>) => {
     const boxVolume = box.length * box.width * box.height;
     const extraSpace = boxVolume - itemsVolume;
 
-    if (extraSpace === 0) return "Tight Fit";
-    if (extraSpace <= 500) return "Standard Fit";
+    const extraSpacePercentage = (extraSpace / boxVolume) * 100;
+    if (extraSpacePercentage < 0) return "Overpacked";
+    if (extraSpacePercentage === 0) return "Tight Fit";
+    if (extraSpacePercentage <= 10) return "Standard Fit";
     return "Extra Room";
+
 };
 
 export = {
