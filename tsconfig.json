@@ -1,13 +1,13 @@
 {
-  "compilerOptions": {
-    "target": "ES6",              // Modern JS version
-    "module": "commonjs",         // Node.js ke liye
-    "outDir": "./dist",           // Compiled JS files yaha jayenge
-    "rootDir": "./src",           // Source files yaha se lenge
-    "strict": true,               // Strict type checking
-    "esModuleInterop": true,      // Better module imports
-    "skipLibCheck": true          // Faster compilation
-  },
-  "include": ["src/**/*"],        // Src folder ke files include karo
-  "exclude": ["node_modules"]     // Junk ko ignore karo
+    "compilerOptions": {
+        "target": "ES6", // Modern JS version
+        "module": "commonjs", // Node.js ke liye
+        "outDir": "./dist", // Compiled JS files yaha jayenge
+        "rootDir": "./src", // Source files yaha se lenge
+        "strict": true, // Strict type checking
+        "esModuleInterop": true, // Better module imports
+        "skipLibCheck": true // Faster compilation
+    },
+    "include": ["src/**/*"], // Src folder ke files include karo
+    "exclude": ["node_modules"] // Junk ko ignore karo
 }

@@ -18,22 +18,25 @@ The **Packaging Solution System** is a Node.js-based application designed to rec
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/amit8810/packaging_solution_system.git
-   cd packaging_solution_system
-   ```
+
+    ```bash
+    git clone https://github.com/amit8810/packaging_solution_system.git
+    cd packaging_solution_system
+    ```
 
 2. Install dependencies:
     ```bash
     npm install
     ```
 3. Set up environment variables:
--   Copy the `sample.env file` to `.env.development`
+
+- Copy the `sample.env file` to `.env.development`
 
     ```bash
     cp sample.env .env.development
     ```
--   Update the `.env.development` file with your MongoDB URI and database name.
+
+- Update the `.env.development` file with your MongoDB URI and database name.
 
 4. Seed the database with sample data:
     ```bash
@@ -41,33 +44,46 @@ The **Packaging Solution System** is a Node.js-based application designed to rec
     ```
 
 ## Usage
+
 ### Development Server
+
 Start the development server:
+
 ```bash
 npm run dev
 ```
+
 The server will run at `http://localhost:3000`.
 
 ### API Documentation
+
 Access the Swagger API documentation at:
+
 ```bash
 http://localhost:3000/api-docs
 ```
 
 ### Build for Production
+
 To build the project for production:
+
 ```bash
 npm run build
 ```
+
 Start the production server:
+
 ```bash
 npm run start
 ```
 
 ### API Endpoints
+
 `/api/packaging` (POST)
+
 - **Description**: Get packaging suggestions for items.
 - **Request Body**:
+
 ```javascript
 {
   "items": [
@@ -83,7 +99,9 @@ npm run start
   "maxSuggestions": 3
 }
 ```
+
 - **Response**:
+
 ```javascript
 {
   "message": "Box recommendation with estimate cost",
@@ -101,6 +119,7 @@ npm run start
 ```
 
 ## Scripts
+
 - **`npm run dev`**: Start the development server.
 - **`npm run build`**: Compile TypeScript to JavaScript.
 - **`npm start`**: Start the production server.
@@ -109,6 +128,7 @@ npm run start
 - **`npm run seed`**: Seed the database with sample data.
 
 ## Technologies Used
+
 - **`Node.js`**: Backend runtime
 - **`Express`**: Web framework
 - **`TypeScript`**: Type-safe development
@@ -118,15 +138,9 @@ npm run start
 - **`Swagger`**: API documentation
 
 ### Contributing
+
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 ### License
+
 This project is licensed under the ISC License.
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import { config } from "../config";
-import { logger } from "../config/logger";
+import mongoose from 'mongoose';
+import { config } from '../config';
+import { logger } from '../config/logger';
 
 const dbConnection = async (): Promise<typeof mongoose> => {
     try {
@@ -11,9 +11,6 @@ const dbConnection = async (): Promise<typeof mongoose> => {
         console.error(`Error connecting to MongoDB: ${error}`);
         process.exit(1);
     }
-}
+};
 
 export default dbConnection;
-
-
-

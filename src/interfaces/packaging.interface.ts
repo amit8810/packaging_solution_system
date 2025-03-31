@@ -35,12 +35,7 @@ interface IPackedItems {
 }
 
 interface IFragilityPriority {
-    [key: string] : number,
+    [key: string]: number;
 }
 
-export {
-    Item,
-    IPaddedItem,
-    IPackedItems,
-    IFragilityPriority
-}
+export { Item, IPaddedItem, IPackedItems, IFragilityPriority };

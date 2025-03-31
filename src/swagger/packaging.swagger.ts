@@ -1,119 +1,176 @@
 const packagingSwagger = {
-    "/api/packaging": {
+    '/api/packaging': {
         post: {
-            summary: "Get packaging suggestions for items",
-            tags: ["Packaging"],
+            summary: 'Get packaging suggestions for items',
+            tags: ['Packaging'],
             requestBody: {
                 required: true,
                 content: {
-                    "application/json": {
+                    'application/json': {
                         schema: {
-                            type: "object",
+                            type: 'object',
                             properties: {
                                 items: {
-                                    type: "array",
+                                    type: 'array',
                                     items: {
-                                        type: "object",
+                                        type: 'object',
                                         properties: {
-                                            name: { type: "string", description: "Name of the item" },
-                                            length: { type: "number", description: "Length of the item" },
-                                            width: { type: "number", description: "Width of the item" },
-                                            height: { type: "number", description: "Height of the item" },
+                                            name: {
+                                                type: 'string',
+                                                description: 'Name of the item',
+                                            },
+                                            length: {
+                                                type: 'number',
+                                                description: 'Length of the item',
+                                            },
+                                            width: {
+                                                type: 'number',
+                                                description: 'Width of the item',
+                                            },
+                                            height: {
+                                                type: 'number',
+                                                description: 'Height of the item',
+                                            },
                                             fragility: {
-                                                type: "string",
-                                                description: "Fragility level (e.g., fragile, semi-fragile, unbreakable)",
+                                                type: 'string',
+                                                description:
+                                                    'Fragility level (e.g., fragile, semi-fragile, unbreakable)',
                                             },
                                             quantity: {
-                                                type: "number",
-                                                description: "Number of items (optional, defaults to 1)",
+                                                type: 'number',
+                                                description: 'Number of items (optional, defaults to 1)',
                                             },
                                         },
-                                        required: ["length", "width", "height", "fragility", "name"],
+                                        required: ['length', 'width', 'height', 'fragility', 'name'],
                                     },
                                 },
                                 maxSuggestions: {
-                                    type: "number",
+                                    type: 'number',
                                     default: 3,
-                                    description: "Maximum number of packaging suggestions to return",
+                                    description: 'Maximum number of packaging suggestions to return',
                                 },
                             },
-                            required: ["items"],
+                            required: ['items'],
                         },
                     },
                 },
             },
             responses: {
                 200: {
-                    description: "List of suitable packaging suggestions",
+                    description: 'List of suitable packaging suggestions',
                     content: {
-                        "application/json": {
+                        'application/json': {
                             schema: {
-                                type: "array",
+                                type: 'array',
                                 items: {
-                                    type: "object",
+                                    type: 'object',
                                     properties: {
                                         box: {
-                                            type: "object",
+                                            type: 'object',
                                             properties: {
-                                                sku: { type: "string", description: "Stock Keeping Unit" },
-                                                name: { type: "string", description: "Name of the box" },
-                                                length: { type: "number", description: "Length of the box" },
-                                                width: { type: "number", description: "Width of the box" },
-                                                height: { type: "number", description: "Height of the box" },
+                                                sku: {
+                                                    type: 'string',
+                                                    description: 'Stock Keeping Unit',
+                                                },
+                                                name: {
+                                                    type: 'string',
+                                                    description: 'Name of the box',
+                                                },
+                                                length: {
+                                                    type: 'number',
+                                                    description: 'Length of the box',
+                                                },
+                                                width: {
+                                                    type: 'number',
+                                                    description: 'Width of the box',
+                                                },
+                                                height: {
+                                                    type: 'number',
+                                                    description: 'Height of the box',
+                                                },
                                                 strength: {
-                                                    type: "string",
-                                                    description: "Strength of the box (single-wall, double-wall, triple-wall)",
+                                                    type: 'string',
+                                                    description:
+                                                        'Strength of the box (single-wall, double-wall, triple-wall)',
                                                 },
                                                 type: {
-                                                    type: "string",
-                                                    description: "Type of the box (standard, mailing tube, flat mailer)",
+                                                    type: 'string',
+                                                    description:
+                                                        'Type of the box (standard, mailing tube, flat mailer)',
                                                 },
-                                                cost: { type: "number", description: "Cost of the box" },
+                                                cost: {
+                                                    type: 'number',
+                                                    description: 'Cost of the box',
+                                                },
                                             },
                                         },
                                         itemsArrangement: {
-                                            type: "array",
+                                            type: 'array',
                                             items: {
-                                                type: "object",
+                                                type: 'object',
                                                 properties: {
-                                                    name: { type: "string", description: "Name of the item" },
+                                                    name: {
+                                                        type: 'string',
+                                                        description: 'Name of the item',
+                                                    },
                                                     coordinates: {
-                                                        type: "object",
+                                                        type: 'object',
                                                         properties: {
-                                                            x: { type: "number" },
-                                                            y: { type: "number" },
-                                                            z: { type: "number" },
+                                                            x: {
+                                                                type: 'number',
+                                                            },
+                                                            y: {
+                                                                type: 'number',
+                                                            },
+                                                            z: {
+                                                                type: 'number',
+                                                            },
                                                         },
                                                     },
-                                                    fragility: { type: "string", description: "Fragility level" },
+                                                    fragility: {
+                                                        type: 'string',
+                                                        description: 'Fragility level',
+                                                    },
                                                 },
                                             },
-                                            description: "Arrangement of items in the box",
+                                            description: 'Arrangement of items in the box',
                                         },
                                         packing_materials: {
-                                            type: "array",
+                                            type: 'array',
                                             items: {
-                                                type: "object",
+                                                type: 'object',
                                                 properties: {
-                                                    name: { type: "string", description: "Name of the material" },
-                                                    amount: { type: "number", description: "Amount used" },
-                                                    unit: { type: "string", description: "Unit of measurement" },
-                                                    cost: { type: "number", description: "Cost of the material" },
+                                                    name: {
+                                                        type: 'string',
+                                                        description: 'Name of the material',
+                                                    },
+                                                    amount: {
+                                                        type: 'number',
+                                                        description: 'Amount used',
+                                                    },
+                                                    unit: {
+                                                        type: 'string',
+                                                        description: 'Unit of measurement',
+                                                    },
+                                                    cost: {
+                                                        type: 'number',
+                                                        description: 'Cost of the material',
+                                                    },
                                                 },
                                             },
-                                            description: "Packing materials used",
+                                            description: 'Packing materials used',
                                         },
                                         material_cost: {
-                                            type: "number",
-                                            description: "Total cost of packing materials",
+                                            type: 'number',
+                                            description: 'Total cost of packing materials',
                                         },
                                         estimate_cost: {
-                                            type: "number",
-                                            description: "Total estimated cost (box + materials)",
+                                            type: 'number',
+                                            description: 'Total estimated cost (box + materials)',
                                         },
                                         fit_rating: {
-                                            type: "string",
-                                            description: "Fit rating (e.g., Tight Fit, Standard Fit, Extra Room)",
+                                            type: 'string',
+                                            description: 'Fit rating (e.g., Tight Fit, Standard Fit, Extra Room)',
                                         },
                                     },
                                 },
@@ -122,13 +179,13 @@ const packagingSwagger = {
                     },
                 },
                 400: {
-                    description: "Invalid input",
+                    description: 'Invalid input',
                     content: {
-                        "application/json": {
+                        'application/json': {
                             schema: {
-                                type: "object",
+                                type: 'object',
                                 properties: {
-                                    message: { type: "string" },
+                                    message: { type: 'string' },
                                 },
                             },
                         },

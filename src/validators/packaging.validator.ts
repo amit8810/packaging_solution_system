@@ -6,7 +6,7 @@ const itemSchema = Joi.object({
     width: Joi.number().min(0).required(),
     height: Joi.number().min(0).required(),
     quantity: Joi.number().min(1).required(),
-    fragility: Joi.string().valid("unbreakable", "semi-fragile", "fragile").required(),
+    fragility: Joi.string().valid('unbreakable', 'semi-fragile', 'fragile').required(),
 });
 
 const packaging = Joi.object({
@@ -16,4 +16,4 @@ const packaging = Joi.object({
 
 export = {
     packaging,
-}
+};
