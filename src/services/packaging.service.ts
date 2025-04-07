@@ -1,4 +1,4 @@
-import { CUSHIONING_RULE } from '../constants/cushioning-rules';
+import { CUSHIONING_RULE } from '../constants';
 import { Box, IBox, IPackingMaterial, PackingMaterial } from '../models';
 import { Item, IPaddedItem, IPackedItems, IFragilityPriority } from '../interfaces/packaging.interface';
 
